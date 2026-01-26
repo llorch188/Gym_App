@@ -1,0 +1,35 @@
+site_name: Gym App
+site_description: Documentación de usuario profesional
+site_author: Jorge Esplugues Mañó
+repo_url: https://github.com/usuario/proyecto-docs
+theme:
+  name: material
+  language: es
+  icon:
+    logo: fontawesome/solid/G
+  palette:
+    #Dark Mode
+    - scheme: slate
+      toggle:
+        icon: material/weather-sunny
+        name: Dark mode
+      primary: green
+      accent: deep purple
+
+    # Light Mode
+    - scheme: default
+      toggle:
+        icon: material/weather-night
+        name: Light mode
+      primary: blue
+      accent: deep orange
+  features:
+    - navigation.tabs
+    - content.code.annotate
+    - content.tabs.link
+    - search.highlight
+    - search.suggest
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/usuario/proyecto-docs

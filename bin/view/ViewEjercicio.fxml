@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="703.0" prefWidth="546.0"
+            xmlns="http://javafx.com/javafx/24.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="control.ControlEditarEjercicio">
+
+   <children>
+
+      <ImageView fx:id="imageView"
+                 fitHeight="188.0" fitWidth="420.0"
+                 layoutX="68.0" layoutY="49.0"
+                 pickOnBounds="true" preserveRatio="true"/>
+
+      <Text fx:id="txtNombre"
+            layoutX="203.0" layoutY="261.0"
+            text="Nombre" textAlignment="CENTER">
+         <font><Font size="15.0" /></font>
+      </Text>
+
+      <Text layoutX="44.0" layoutY="294.0"
+            text="Series">
+         <font><Font name="System Bold" size="18.0" /></font>
+      </Text>
+
+      <Spinner fx:id="spinnerSeries"
+               layoutX="104.0" layoutY="274.0"
+               prefHeight="25.0" prefWidth="81.0"/>
+
+      <TableView fx:id="tablaPesoReps"
+                 layoutX="92.0" layoutY="310.0"
+                 prefHeight="188.0" prefWidth="360.0">
+         <columns>
+            <TableColumn fx:id="colPeso" prefWidth="181.0" text="Peso"/>
+            <TableColumn fx:id="colReps" prefWidth="178.0" text="Repeticiones"/>
+         </columns>
+      </TableView>
+
+      <TextArea fx:id="txtNotas"
+                layoutX="28.0" layoutY="528.0"
+                prefHeight="160.0" prefWidth="501.0"/>
+
+      <Text layoutX="28.0" layoutY="517.0" text="Notas">
+         <font><Font name="System Bold" size="18.0" /></font>
+      </Text>
+
+      <Button fx:id="saveButton"
+              layoutX="477.0" layoutY="18.0"
+              text="Save"/>
+
+   </children>
+</AnchorPane>

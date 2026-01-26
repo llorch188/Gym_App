@@ -1,0 +1,62 @@
+/* =========================
+   TARJETA PRINCIPAL
+========================= */
+
+.card-ejercicio {
+    -fx-background-color: #2b2b2b;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-border-color: #444;
+    -fx-border-width: 1;
+    -fx-padding: 10;
+
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 8, 0.2, 0, 2);
+    -fx-cursor: hand;
+}
+
+/* Hover del card */
+.card-ejercicio:hover {
+    -fx-background-color: #3a3a3a;
+    -fx-border-color: #6dd5ff;
+    -fx-effect: dropshadow(gaussian, rgba(109,213,255,0.6), 15, 0.4, 0, 0);
+}
+
+/* =========================
+   TÍTULO
+========================= */
+
+.card-title {
+    -fx-text-fill: white;
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+    -fx-padding: 5;
+}
+
+/* =========================
+   BOTONES (INVISIBLES)
+========================= */
+
+.card-actions {
+    -fx-opacity: 0;
+    -fx-padding: 10;
+}
+
+/* Mostrar botones al hacer hover */
+.card-ejercicio:hover .card-actions {
+    -fx-opacity: 1;
+}
+
+/* =========================
+   BOTONES
+========================= */
+
+.card-actions .button {
+    -fx-background-color: #444;
+    -fx-text-fill: white;
+    -fx-background-radius: 8;
+}
+
+.card-actions .button:hover {
+    -fx-background-color: #6dd5ff;
+    -fx-text-fill: black;
+}
