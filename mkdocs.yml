@@ -1,0 +1,71 @@
+site_name: Gym App — Documentación de Usuario
+site_description: Documentación de usuario de Gym App (App para gestión y uso personal en el gimnasio)
+site_author: Jorge Esplugues Mañó
+site_url: https://llorch188.github.io/Gym_App
+
+repo_url: https://github.com/llorch188/Gym_App
+edit_uri: ""
+
+theme:
+  name: material
+  language: es
+  logo: images/icon.png
+  favicon: images/icon.png
+  features:
+    - navigation.tabs
+    - content.code.annotate
+    - content.tabs.link
+    - search.highlight
+    - search.suggest
+  palette:
+      #Dark Mode
+    - scheme: slate
+      toggle:
+        icon: material/weather-sunny
+        name: Dark mode
+      primary: green
+      accent: deep purple
+
+    # Light Mode
+    - scheme: default
+      toggle:
+        icon: material/weather-night
+        name: Light mode
+      primary: blue
+      accent: deep orange
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/llorch188/Gym_App
+
+nav:
+  - Inicio: index.md
+  - Instalación: instalacion.md
+  - Uso: uso.md
+  - Ejemplos: ejemplos.md
+  - FAQ: faq.md
+  - Capturas: capturas.md
+
+plugins:
+  - search
+  - mermaid2
+
+markdown_extensions:
+  - admonition
+  - footnotes
+  - toc:
+      permalink: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed
+  - pymdownx.inlinehilite
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+# extra_css:
+#   - stylesheets/extra.css
