@@ -47,10 +47,6 @@ nav:
   - FAQ: faq.md
   - Capturas: capturas.md
 
-plugins:
-  - search
-  - mermaid2
-
 markdown_extensions:
   - admonition
   - footnotes
