@@ -21,6 +21,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Controlador principal de la vista de rutina.
+ * Gestiona los días de entrenamiento, los ejercicios asociados
+ * a cada día y la visualización de estadísticas mediante gráficas.
+ */
 public class ControlRutina {
 
     @FXML
@@ -38,6 +43,11 @@ public class ControlRutina {
     private ArrayList<Dia> dias = new ArrayList<>();
     private final Map<Dia, ListView<Ejercicio>> listViewPorDia = new HashMap<>();
 
+    /**
+     * Inicializa el controlador después de cargar el FXML.
+     * Carga los días con ejercicios, muestra los tabs y
+     * actualiza la gráfica según el día seleccionado.
+     */
     @FXML
     private void initialize() {
         cargarDiasConEjercicios();
@@ -55,6 +65,10 @@ public class ControlRutina {
         }
     }
 
+    /**
+     * Carga los días de entrenamiento con ejercicios
+     * predefinidos.
+     */
     private void cargarDiasConEjercicios() {
         dias.clear();
 
@@ -92,10 +106,19 @@ public class ControlRutina {
         dias.add(new Dia(6, "Día 6", new ArrayList<>()));
     }
 
+    /**
+     * Devuelve la lista de días de la rutina.
+     *
+     * @return lista de días
+     */
     public ArrayList<Dia> getDias() {
         return dias;
     }
 
+    /**
+     * Muestra los días de la rutina en el TabPane,
+     * creando una pestaña y lista de ejercicios por cada día.
+     */
     public void mostrarDias() {
         tabPane.getTabs().clear();
         listViewPorDia.clear();
@@ -114,7 +137,6 @@ public class ControlRutina {
                     } else {
                         setText(e.getNombre() + " | " + e.getSeries() + "x" + e.getReps() + " | " + e.getPeso() + " kg");
 
-                        // 🔹 Escuchar cambios de propiedades para actualizar texto automáticamente
                         e.seriesProperty().addListener((obs, oldV, newV) ->
                                 setText(e.getNombre() + " | " + newV + "x" + e.getReps() + " | " + e.getPeso() + " kg"));
                         e.repsProperty().addListener((obs, oldV, newV) ->
@@ -138,6 +160,10 @@ public class ControlRutina {
         }
     }
 
+    /**
+     * Abre la ventana de selección de músculos
+     * para añadir un nuevo ejercicio.
+     */
     @FXML
     private void onAddClick() {
         try {
@@ -156,6 +182,11 @@ public class ControlRutina {
         }
     }
 
+    /**
+     * Añade un ejercicio al día actualmente seleccionado.
+     *
+     * @param ejercicio ejercicio a añadir
+     */
     public void addEjercicioARutina(Ejercicio ejercicio) {
         int indexDia = tabPane.getSelectionModel().getSelectedIndex();
         if (indexDia < 0 || indexDia >= dias.size()) return;
@@ -169,21 +200,36 @@ public class ControlRutina {
         actualizarGrafica(dia);
     }
 
+    /**
+     * Actualiza la gráfica de músculos según
+     * los ejercicios del día indicado.
+     *
+     * @param dia día seleccionado
+     */
     private void actualizarGrafica(Dia dia) {
         graficaMusculos.getData().clear();
         Map<String, Integer> conteoMusculos = new HashMap<>();
+
         for (Ejercicio e : dia.getEjercicios()) {
-            conteoMusculos.put(e.getMusculo(), conteoMusculos.getOrDefault(e.getMusculo(), 0) + 1);
+            conteoMusculos.put(
+                    e.getMusculo(),
+                    conteoMusculos.getOrDefault(e.getMusculo(), 0) + 1
+            );
         }
 
         for (Map.Entry<String, Integer> entry : conteoMusculos.entrySet()) {
             StackedBarChart.Series<String, Number> serie = new StackedBarChart.Series<>();
             serie.setName(entry.getKey());
-            serie.getData().add(new StackedBarChart.Data<>(dia.getNombre(), entry.getValue()));
+            serie.getData().add(
+                    new StackedBarChart.Data<>(dia.getNombre(), entry.getValue())
+            );
             graficaMusculos.getData().add(serie);
         }
     }
 
+    /**
+     * Abre la ventana de edición del ejercicio seleccionado.
+     */
     @FXML
     private void onEditClick() {
         try {
@@ -210,6 +256,12 @@ public class ControlRutina {
         }
     }
 
+    /**
+     * Muestra una alerta de error.
+     *
+     * @param titulo título de la alerta
+     * @param mensaje mensaje a mostrar
+     */
     private void mostrarAlerta(String titulo, String mensaje) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(titulo);
@@ -218,6 +270,12 @@ public class ControlRutina {
         alert.showAndWait();
     }
 
+    /**
+     * Refresca la visualización de un ejercicio editado
+     * y actualiza la gráfica correspondiente.
+     *
+     * @param ejercicio ejercicio modificado
+     */
     public void refreshEjercicio(Ejercicio ejercicio) {
         for (Dia dia : dias) {
             ListView<Ejercicio> listView = listViewPorDia.get(dia);
@@ -229,6 +287,9 @@ public class ControlRutina {
         }
     }
 
+    /**
+     * Elimina el ejercicio seleccionado del día actual.
+     */
     @FXML
     private void onDeleteClick() {
         Tab tab = tabPane.getSelectionModel().getSelectedItem();
@@ -236,7 +297,10 @@ public class ControlRutina {
 
         ListView<Ejercicio> list = (ListView<Ejercicio>) tab.getContent();
         Ejercicio ejercicioSeleccionado = list.getSelectionModel().getSelectedItem();
-        if (ejercicioSeleccionado == null) { mostrarAlerta("Error", "No hay ningún ejercicio seleccionado."); return; }
+        if (ejercicioSeleccionado == null) {
+            mostrarAlerta("Error", "No hay ningún ejercicio seleccionado.");
+            return;
+        }
 
         list.getItems().remove(ejercicioSeleccionado);
         int indexDia = tabPane.getSelectionModel().getSelectedIndex();
@@ -246,6 +310,9 @@ public class ControlRutina {
         }
     }
 
+    /**
+     * Vuelve a la vista principal de la aplicación.
+     */
     @FXML
     private void onAtrasClicked() {
         try {
@@ -261,6 +328,11 @@ public class ControlRutina {
         }
     }
 
+    /**
+     * Abre la ventana de edición para el ejercicio indicado.
+     *
+     * @param ejercicio ejercicio a editar
+     */
     private void abrirEditorEjercicio(Ejercicio ejercicio) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/EditarEjercicio.fxml"));

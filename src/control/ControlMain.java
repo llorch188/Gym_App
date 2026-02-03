@@ -12,6 +12,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * Controlador principal de la aplicación.
+ * Gestiona la ventana inicial, el cambio de temas
+ * y la creación, edición, eliminación y apertura de rutinas.
+ */
 public class ControlMain {
 
     private Button selectedRutina;
@@ -20,6 +25,10 @@ public class ControlMain {
     @FXML
     private VBox contenedorRutinas; // Debe existir en tu FXML
 
+    /**
+     * Inicializa el controlador después de cargar el FXML.
+     * Guarda la escena principal cuando está disponible.
+     */
     @FXML
     private void initialize() {
         // Guardamos la escena cuando esté lista
@@ -27,26 +36,60 @@ public class ControlMain {
     }
 
     // ------------------ Temas ------------------
-    @FXML
-    private void onOrange() { changeTheme("/css/orange.css"); }
-    @FXML
-    private void onBlue() { changeTheme("/css/blue.css"); }
-    @FXML
-    private void onRed() { changeTheme("/css/red.css"); }
 
+    /**
+     * Aplica el tema naranja a la aplicación.
+     */
+    @FXML
+    private void onOrange() {
+        changeTheme("/css/orange.css");
+    }
+
+    /**
+     * Aplica el tema azul a la aplicación.
+     */
+    @FXML
+    private void onBlue() {
+        changeTheme("/css/blue.css");
+    }
+
+    /**
+     * Aplica el tema rojo a la aplicación.
+     */
+    @FXML
+    private void onRed() {
+        changeTheme("/css/red.css");
+    }
+
+    /**
+     * Cambia el tema visual de la aplicación
+     * aplicando el archivo CSS indicado.
+     *
+     * @param cssFile ruta del archivo CSS
+     */
     private void changeTheme(String cssFile) {
         ThemeManager.getInstance().changeTheme(cssFile);
         ThemeManager.getInstance().applyTheme(scene);
     }
 
     // ------------------ Rutina ------------------
+
+    /**
+     * Maneja el evento de clic sobre una rutina.
+     * Selecciona visualmente la rutina y, si se hace doble clic,
+     * abre la rutina correspondiente.
+     *
+     * @param event evento de ratón generado
+     */
     @FXML
     private void onRutinaClicked(MouseEvent event) {
         Button button = (Button) event.getSource();
         selectedRutina = button;
 
         // Resaltar visualmente
-        contenedorRutinas.getChildren().forEach(node -> node.setStyle("-fx-font-size: 31; -fx-font-weight: normal;"));
+        contenedorRutinas.getChildren().forEach(
+                node -> node.setStyle("-fx-font-size: 31; -fx-font-weight: normal;")
+        );
         button.setStyle("-fx-font-size: 31; -fx-font-weight: bold; -fx-background-color: lightblue;");
 
         if (event.getClickCount() == 2) {
@@ -54,6 +97,13 @@ public class ControlMain {
         }
     }
 
+    /**
+     * Abre la ventana de la rutina seleccionada
+     * y cierra la ventana principal.
+     *
+     * @param rutinaName nombre de la rutina
+     * @param sourceButton botón desde el cual se abrió la rutina
+     */
     public void openRutina(String rutinaName, Button sourceButton) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ViewRutina.fxml"));
@@ -76,6 +126,10 @@ public class ControlMain {
         }
     }
 
+    /**
+     * Muestra un diálogo para crear una nueva rutina
+     * y la añade al contenedor si el nombre es válido.
+     */
     @FXML
     private void addRutina() {
         TextInputDialog dialog = new TextInputDialog();
@@ -96,6 +150,10 @@ public class ControlMain {
         });
     }
 
+    /**
+     * Permite editar el nombre de la rutina seleccionada.
+     * Muestra una advertencia si no hay ninguna rutina seleccionada.
+     */
     @FXML
     private void editRutina() {
         if (selectedRutina == null) {
@@ -119,6 +177,10 @@ public class ControlMain {
         });
     }
 
+    /**
+     * Elimina la rutina seleccionada.
+     * Muestra una advertencia si no hay ninguna rutina seleccionada.
+     */
     @FXML
     private void deleteRutina() {
         if (selectedRutina == null) {
@@ -133,9 +195,13 @@ public class ControlMain {
         contenedorRutinas.getChildren().remove(selectedRutina);
         selectedRutina = null;
     }
-    
+
+    /**
+     * Establece la escena principal del controlador.
+     *
+     * @param scene escena principal de la aplicación
+     */
     public void setScene(Scene scene) {
         this.scene = scene;
     }
-
 }

@@ -4,12 +4,16 @@ import javafx.scene.Scene;
 
 public class ThemeManager {
 
+    // Instancia única del ThemeManager (patrón Singleton)
     private static ThemeManager instance;
 
-    private String currentTheme = "/css/orange.css"; // tema por defecto
+    // Ruta del tema actual (tema por defecto)
+    private String currentTheme = "/css/orange.css";
 
+    // Constructor privado para evitar instanciación externa
     private ThemeManager() {}
 
+    // Devuelve la instancia única del ThemeManager
     public static ThemeManager getInstance() {
         if (instance == null) {
             instance = new ThemeManager();
@@ -17,15 +21,23 @@ public class ThemeManager {
         return instance;
     }
 
+    // Aplica el tema actual a la escena recibida
     public void applyTheme(Scene scene) {
+        // Elimina los estilos anteriores
         scene.getStylesheets().clear();
-        scene.getStylesheets().add(getClass().getResource(currentTheme).toExternalForm());
+
+        // Añade el CSS del tema actual
+        scene.getStylesheets().add(
+                getClass().getResource(currentTheme).toExternalForm()
+        );
     }
 
+    // Cambia la ruta del tema actual
     public void changeTheme(String themePath) {
         currentTheme = themePath;
     }
 
+    // Devuelve la ruta del tema actual
     public String getCurrentTheme() {
         return currentTheme;
     }
